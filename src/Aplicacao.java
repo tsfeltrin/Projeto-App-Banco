@@ -2,6 +2,7 @@ import com.sun.security.jgss.GSSUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Aplicacao {
@@ -50,7 +51,7 @@ public class Aplicacao {
                 }
             }
             System.out.println("SELECIONE A OPÇÃO DESEJADA: \n 1 - LISTAR CLIENTES \n 2 - TRANSAÇÕES");
-            int menu = entrada.nextInt();
+            int menu = Integer.parseInt(entrada.nextLine());
 
             if (menu == 1) {
                 for (int i = 0; i <= listaClientes.size(); i++) {
@@ -62,12 +63,12 @@ public class Aplicacao {
             if (menu == 2) {
                 System.out.println("SELECIONE O TIPO DE CONTA: \n 1 - CONTA CORRENTE \n 2 - CONTA POUPANÇA \n 3 - CONTA INVESTIMENTO ");
 
-                int tipoConta = entrada.nextInt();
+                int tipoConta = Integer.parseInt(entrada.nextLine());
 
                 System.out.println("SELECIONE A OERAÇÃO DESEJADA: \n 1 - ABRIR CONTA \n 2 - SACAR VALOR \n 3 - INVESTIR \n " +
                         "4 - DEPOSITAR VALOR \n 5 - TRANSFERENCIA \n 6 - CONSULTAR SALDO");
 
-                int opcao = entrada.nextInt();
+                int opcao = Integer.parseInt(entrada.nextLine());
 
 
                 if (opcao == 1) {
@@ -91,14 +92,14 @@ public class Aplicacao {
                 if (opcao == 2) {
 
                     System.out.println("Digite o valor que deseja sacar");
-                    double valor = entrada.nextDouble();
+                    double valor = Double.parseDouble(entrada.nextLine());
 
                     if (tipoConta == 1) {
                         ContaCorrente cc = new ContaCorrente();
                         double saldo = cc.sacarValor(clienteAtual, valor);
                         System.out.println("Seu novo saldo após o saque é: " + saldo);
                     } else if (tipoConta == 2) {
-                        if (clienteAtual.getTipo() == "J") {
+                        if (Objects.equals(clienteAtual.getTipo(), "J")) {
                             System.out.println("Você não pode sacar valor deste tipo de conta!");
                         } else {
                             ContaPoupanca cp = new ContaPoupanca();
@@ -112,31 +113,32 @@ public class Aplicacao {
                     }
                 }
 
+                if (opcao == 3) { //VER ERRO!!!!
 
-                if (opcao == 3) {
-                    System.out.println("Digite o valor que deseja investir");
-                    double valor = entrada.nextDouble();
+                    System.out.println("Digite o valor que deseja investir:");
+                    double valor = Double.parseDouble(entrada.nextLine());
 
                     System.out.println("Deseja saber o saldo após o investimento? [S/N]");
                     String exibirSaldo = entrada.nextLine();
 
-                    if (tipoConta == 1) {
-                        ContaCorrente cc = new ContaCorrente();
-                        if (exibirSaldo == "S") {
+                        if (tipoConta == 1) {
+                            ContaCorrente cc = new ContaCorrente();
+                        if (Objects.equals(exibirSaldo, "S")) {
                             double saldo = cc.investir(clienteAtual, valor, true);
                             System.out.println("Depósito realizado com sucesso. Seu novo saldo é: " + saldo);
-                        } else {
+                        }
+                            else {
                             boolean result = cc.investir(clienteAtual, valor);
                             if (result) {
                                 System.out.println("Investimento realizado com sucesso.");
                             } else {
-                                System.out.println("Não foi possível realizar o investimento");
+                                System.out.println("Não é possível realizar este investimento.");
                             }
                         }
 
                     } else if (tipoConta == 2) {
                         ContaPoupanca cp = new ContaPoupanca();
-                        if (exibirSaldo == "S") {
+                        if (Objects.equals(exibirSaldo, "S")) {
                             double saldo = cp.investir(clienteAtual, valor, true);
                             System.out.println("Depósito realizado com sucesso. Seu novo saldo é: " + saldo);
                         } else {
@@ -149,7 +151,7 @@ public class Aplicacao {
                         }
                     } else if (tipoConta == 3) {
                         ContaInvestimento ci = new ContaInvestimento();
-                        if (exibirSaldo == "S") {
+                        if (Objects.equals(exibirSaldo, "S")) {
                             double saldo = ci.investir(clienteAtual, valor, true);
                             System.out.println("Investimento realizado com sucesso. Seu novo saldo é: " + saldo);
                         } else {
@@ -164,8 +166,8 @@ public class Aplicacao {
                 }
 
                 if (opcao == 4) {
-                    System.out.println("Digite o valor que deseja depositar");
-                    double valor = entrada.nextDouble();
+                    System.out.println("Digite o valor que deseja depositar:");
+                    double valor = Double.parseDouble(entrada.nextLine());
 
                     if (tipoConta == 1) {
                         ContaCorrente cc = new ContaCorrente();
@@ -183,8 +185,8 @@ public class Aplicacao {
                 }
 
                 if (opcao == 5) {
-                    System.out.println("Digite o valor que deseja transferir");
-                    double valor = entrada.nextDouble();
+                    System.out.println("Digite o valor que deseja transferir:");
+                    double valor = Double.parseDouble(entrada.nextLine());
 
                     if (tipoConta == 1) {
                         ContaCorrente cc = new ContaCorrente();

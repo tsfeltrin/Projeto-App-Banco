@@ -15,7 +15,9 @@ public abstract class Conta { // CONTA ABSTRATA
 
     public abstract boolean abrirConta(Cliente cliente);
     public abstract double sacarValor(Cliente cliente, double valor);
-    public abstract boolean investir(Cliente cliente, double valor);
+    public boolean investir(Cliente cliente, double valor){
+        return true;
+    }
     public abstract double investir(Cliente cliente, double valor, boolean retornaSaldo); //SOBRECARGA
     public abstract double depositarValor(Cliente cliente, double valor);
     public abstract double transferencia(Cliente cliente, double valor);
